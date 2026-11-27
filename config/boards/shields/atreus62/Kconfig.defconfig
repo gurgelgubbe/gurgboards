@@ -1,0 +1,4 @@
+if SHIELD_ATREUS62
+config ZMK_KEYBOARD_NAME
+    default "Atreus62"
+endif
