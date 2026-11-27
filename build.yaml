@@ -1,17 +1,18 @@
+---
 include:
   # ── "Gurchin", Urchin 34 split keeb from duckyb
   - board: nice_nano//zmk
     shield: gurchin_left
-    snippet: studio-rpc-usb-uart
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: gurchin_left
   - board: nice_nano//zmk
     shield: gurchin_right
     artifact-name: gurchin_right
+    
   # ── "Gurtreus62", Atreus62 variant from Falba_tech but handwired with nice!nano
   - board: nice_nano//zmk
     shield: gurtreus62
     artifact-name: gurtreus62
+    
   # ── Misc.
   - board: nice_nano//zmk
     shield: settings_reset
