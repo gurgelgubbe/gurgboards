@@ -2,16 +2,16 @@
 include:
   # ── "Gurchin", Urchin 34 split keeb from duckyb
   - board: nice_nano//zmk
-    shield: gurchin_left
-    artifact-name: gurchin_left
+    shield: urchin_left
+    artifact-name: urchin_left
   - board: nice_nano//zmk
-    shield: gurchin_right
-    artifact-name: gurchin_right
+    shield: urchin_right
+    artifact-name: urchin_right
     
   # ── "Gurtreus62", Atreus62 variant from Falba_tech but handwired with nice!nano
   - board: nice_nano//zmk
-    shield: gurtreus62
-    artifact-name: gurtreus62
+    shield: atreus62
+    artifact-name: atreus62
     
   # ── Misc.
   - board: nice_nano//zmk
