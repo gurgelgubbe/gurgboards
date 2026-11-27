@@ -1,8 +1,3 @@
-/*
- * Urchin 34 — Swedish Colemak-DH, single layer
- * Host layout: sv-SE
- * SPDX-License-Identifier: MIT
- */
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include "keys_se.h"
