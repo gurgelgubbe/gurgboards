@@ -1,0 +1,142 @@
+/*
+ * Atreus62 — handwired, nice!nano
+ * Base: Colemak-DH, Swedish (host layout: sv-SE)
+ * SPDX-License-Identifier: MIT
+ */
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include "keys_se.h"
+
+#define baseLayer       0
+#define symbolLayer     1
+#define numpadLayer     2
+#define functionLayer   3
+#define bluetoothLayer  4
+#define qwertyLayer     5
+
+/*
+Key positions:
+
+00 01 02 03 04 05 06 07 08 09 10 11
+12 13 14 15 16 17 18 19 20 21 22 23
+24 25 26 27 28 29 30 31 32 33 34 35
+36 37 38 39 40 41 42 43 44 45 46 47
+48 49 50 51 52 53 54 55 56 57 58 59
+                  60 61
+*/
+
+/ {
+    behaviors {
+        gresc: grave_escape {
+            compatible = "zmk,behavior-mod-morph";
+            label = "GRAVE_ESCAPE";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&kp GRAVE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_RSFT)>;
+        };
+
+        hm_l: homerow_mods_left {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS_L";
+            #binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            tapping-term-ms = <300>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <150>;
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <18 19 20 21 22 23 30 31 32 33 34 35 42 43 44 45 46 47>;
+        };
+
+        hm_r: homerow_mods_right {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOMEROW_MODS_R";
+            #binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            tapping-term-ms = <300>;
+            quick-tap-ms = <200>;
+            require-prior-idle-ms = <150>;
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base {
+            display-name = "Base";
+            bindings = <
+&kp ESC     &kp N1        &kp N2          &kp N3  &kp N4  &kp N5         &kp N6  &kp N7  &kp N8     &kp N9        &kp N0      &kp BSPC
+&kp TAB     &kp Q         &kp W           &kp F   &kp P   &kp B          &kp J   &kp L   &kp U      &kp Y         &kp SE_ARNG &kp DELETE
+&kp LSHFT   &kp A         &kp R           &kp S   &hm_l LCTL T &kp G    &kp M   &hm_r LCTL N &kp E  &kp SE_ODIA   &kp SE_ADIA &mt RSHFT ENTER
+&kp LCTRL   &kp Z         &kp X           &kp C   &kp D   &kp V          &kp K   &kp H   &kp O      &kp I         &kp SE_DOT  &kp RCTRL
+&kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP    &kp RALT &kp LALT &kp LGUI      &kp SE_SLSH &kp SE_COMM &kp SE_MINS &kp SE_PLUS &kp LEFT &kp RIGHT
+                                                                         &mo symbolLayer  &lt functionLayer SPACE
+            >;
+        };
+
+        sym {
+            display-name = "Sym";
+            bindings = <
+&trans &trans &trans &trans &trans &trans   &kp SE_EXLM &kp SE_DQUO &kp SE_HASH &kp SE_CURR &kp SE_PERC &trans
+&trans &trans &trans &trans &trans &trans   &kp SE_AMPR &kp SE_SLSH &kp SE_LPRN &kp SE_RPRN &kp SE_EQL  &trans
+&trans &trans &trans &trans &trans &trans   &kp SE_QUOT &kp SE_ASTR &kp SE_UNDS &kp SE_QUES &kp SE_COLN &trans
+&trans &trans &trans &trans &trans &trans   &kp SE_AT   &kp SE_DLR  &kp SE_EUR  &kp SE_LBRC &kp SE_RBRC &trans
+&trans &trans &trans &trans &trans &trans   &kp SE_BSLS &kp SE_PIPE &kp SE_TILD &kp SE_LCBR &kp SE_RCBR &trans
+                                            &trans &trans
+            >;
+        };
+
+        num {
+            display-name = "Num";
+            bindings = <
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans   &kp N7 &kp N8 &kp N9 &kp SE_PLUS &kp SE_MINS &trans
+&trans &trans &trans &trans &trans &trans   &kp N4 &kp N5 &kp N6 &kp SE_ASTR &kp SE_SLSH &trans
+&trans &trans &trans &trans &trans &trans   &kp N1 &kp N2 &kp N3 &kp N0     &kp SE_COMM &trans
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans     &trans      &trans
+                                            &trans &to baseLayer
+            >;
+        };
+
+        func {
+            display-name = "Func";
+            bindings = <
+&trans &kp F1  &kp F2  &kp F3  &kp F4  &kp F5    &kp F6   &kp F7   &kp F8   &kp F9   &kp F10 &trans
+&trans &kp F11 &kp F12 &trans  &trans  &trans    &trans   &kp HOME &kp PG_DN &kp PG_UP &kp END &trans
+&trans &trans  &trans  &trans  &trans  &trans    &trans   &kp LEFT &kp DOWN &kp UP   &kp RIGHT &trans
+&trans &trans  &trans  &trans  &trans  &trans    &kp INS  &kp PSCRN &trans  &kp EQUAL &trans &trans
+&kp C_BRIGHTNESS_DEC &kp C_BRIGHTNESS_INC &trans &trans &trans &trans   &tog numpadLayer &tog bluetoothLayer &trans &trans &trans &bootloader
+                                            &trans &trans
+            >;
+        };
+
+        bt {
+            display-name = "BT";
+            bindings = <
+&trans &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &trans   &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans   &bt BT_CLR &tog qwertyLayer &sys_reset &bootloader &trans &trans
+                                            &trans &to baseLayer
+            >;
+        };
+
+        qwerty {
+            display-name = "QWERTY";
+            bindings = <
+&gresc &kp N1 &kp N2 &kp N3 &kp N4 &kp N5   &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
+&kp TAB &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U &kp I &kp O &kp P &kp DELETE
+&kp LSHFT &kp A &kp S &kp D &kp F &kp G   &kp H &kp J &kp K &kp L &kp SE_ODIA &mt RSHFT ENTER
+&kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M &kp SE_COMM &kp SE_DOT &kp SE_SLSH &kp RCTRL
+&trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
+                                            &mo symbolLayer &to baseLayer
+            >;
+        };
+    };
+};
